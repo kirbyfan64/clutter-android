@@ -94,6 +94,9 @@
 #ifdef CLUTTER_INPUT_MIR
 #include "mir/clutter-device-manager-mir.h"
 #endif
+#ifdef CLUTTER_INPUT_ANDROID
+#include "android/clutter-backend-android.h"
+#endif
 
 #ifdef CLUTTER_HAS_WAYLAND_COMPOSITOR_SUPPORT
 #include <cogl/cogl-wayland-server.h>
@@ -547,6 +550,11 @@ _clutter_create_backend (void)
     retval = g_object_new (CLUTTER_TYPE_BACKEND_MIR, NULL);
   else
 #endif
+#ifdef CLUTTER_WINDOWING_ANDROID
+  if (backend == NULL || backend == I_(CLUTTER_WINDOWING_ANDROID))
+    retval = g_object_new (CLUTTER_TYPE_BACKEND_ANDROID, NULL);
+  else
+#endif
   if (backend == NULL)
     g_error ("No default Clutter backend found.");
   else
@@ -593,6 +601,14 @@ clutter_backend_real_init_events (ClutterBackend *backend)
       (input_backend == NULL || input_backend == I_(CLUTTER_INPUT_GDK)))
     {
       _clutter_backend_gdk_events_init (backend);
+    }
+  else
+#endif
+#ifdef CLUTTER_INPUT_ANDROID
+  if (clutter_check_windowing_backend (CLUTTER_WINDOWING_ANDROID) &&
+      (input_backend == NULL || input_backend == I_(CLUTTER_INPUT_ANDROID)))
+    {
+      _clutter_backend_android_events_init (backend);
     }
   else
 #endif
@@ -917,7 +933,7 @@ _clutter_backend_ensure_context (ClutterBackend *backend,
         }
 
       /* FIXME: With a NULL stage and thus no active context it may make more
-       * sense to clean the context but then re call with the default stage 
+       * sense to clean the context but then re call with the default stage
        * so at least there is some kind of context in place (as to avoid
        * potential issue of GL calls with no context).
        */
@@ -964,7 +980,7 @@ _clutter_backend_get_features (ClutterBackend *backend)
 
   if (klass->get_features)
     return klass->get_features (backend);
-  
+
   return 0;
 }
 

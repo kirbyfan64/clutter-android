@@ -91,6 +91,9 @@
 #ifdef CLUTTER_WINDOWING_MIR
 #include "mir/clutter-backend-mir.h"
 #endif
+#ifdef CLUTTER_WINDOWING_ANDROID
+#include "android/clutter-backend-android.h"
+#endif
 
 #include <cogl/cogl.h>
 #include <cogl-pango/cogl-pango.h>
@@ -3671,6 +3674,12 @@ clutter_check_windowing_backend (const char *backend_type)
 #ifdef CLUTTER_WINDOWING_X11
   if (backend_type == I_(CLUTTER_WINDOWING_X11) &&
       CLUTTER_IS_BACKEND_X11 (context->backend))
+    return TRUE;
+  else
+#endif
+#ifdef CLUTTER_WINDOWING_ANDROID
+  if (backend_type == I_(CLUTTER_WINDOWING_ANDROID) &&
+      CLUTTER_IS_BACKEND_ANDROID (context->backend))
     return TRUE;
   else
 #endif
