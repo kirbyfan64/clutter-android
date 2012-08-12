@@ -106,6 +106,9 @@
 
 #define DEFAULT_FONT_NAME       "Sans 10"
 
+#define CLUTTER_BACKEND_GET_PRIVATE(obj) \
+(G_TYPE_INSTANCE_GET_PRIVATE ((obj), CLUTTER_TYPE_BACKEND, ClutterBackendPrivate))
+
 enum
 {
   RESOLUTION_CHANGED,
@@ -1052,129 +1055,6 @@ clutter_get_default_backend (void)
   clutter_context = _clutter_context_get_default ();
 
   return clutter_context->backend;
-}
-
-/**
- * clutter_backend_set_double_click_time:
- * @backend: a #ClutterBackend
- * @msec: milliseconds between two button press events
- *
- * Sets the maximum time between two button press events, used to
- * verify whether it's a double click event or not.
- *
- * Since: 0.4
- *
- * Deprecated: 1.4: Use #ClutterSettings:double-click-time instead
- */
-void
-clutter_backend_set_double_click_time (ClutterBackend *backend,
-                                       guint           msec)
-{
-  ClutterSettings *settings = clutter_settings_get_default ();
-
-  g_object_set (settings, "double-click-time", msec, NULL);
-}
-
-/**
- * clutter_backend_get_double_click_time:
- * @backend: a #ClutterBackend
- *
- * Gets the maximum time between two button press events, as set
- * by clutter_backend_set_double_click_time().
- *
- * Return value: a time in milliseconds
- *
- * Since: 0.4
- *
- * Deprecated: 1.4: Use #ClutterSettings:double-click-time instead
- */
-guint
-clutter_backend_get_double_click_time (ClutterBackend *backend)
-{
-  ClutterSettings *settings = clutter_settings_get_default ();
-  gint retval;
-
-  g_object_get (settings, "double-click-time", &retval, NULL);
-
-  return retval;
-}
-
-/**
- * clutter_backend_set_double_click_distance:
- * @backend: a #ClutterBackend
- * @distance: a distance, in pixels
- *
- * Sets the maximum distance used to verify a double click event.
- *
- * Since: 0.4
- *
- * Deprecated: 1.4: Use #ClutterSettings:double-click-distance instead
- */
-void
-clutter_backend_set_double_click_distance (ClutterBackend *backend,
-                                           guint           distance)
-{
-  ClutterSettings *settings = clutter_settings_get_default ();
-
-  g_object_set (settings, "double-click-distance", distance, NULL);
-}
-
-/**
- * clutter_backend_get_double_click_distance:
- * @backend: a #ClutterBackend
- *
- * Retrieves the distance used to verify a double click event
- *
- * Return value: a distance, in pixels.
- *
- * Since: 0.4
- *
- * Deprecated: 1.4: Use #ClutterSettings:double-click-distance instead
- */
-guint
-clutter_backend_get_double_click_distance (ClutterBackend *backend)
-{
-  ClutterSettings *settings = clutter_settings_get_default ();
-  gint retval;
-
-  g_object_get (settings, "double-click-distance", &retval, NULL);
-
-  return retval;
-}
-
-/**
- * clutter_backend_set_resolution:
- * @backend: a #ClutterBackend
- * @dpi: the resolution in "dots per inch" (Physical inches aren't
- *   actually involved; the terminology is conventional).
- *
- * Sets the resolution for font handling on the screen. This is a
- * scale factor between points specified in a #PangoFontDescription
- * and cairo units. The default value is 96, meaning that a 10 point
- * font will be 13 units high. (10 * 96. / 72. = 13.3).
- *
- * Applications should never need to call this function.
- *
- * Since: 0.4
- *
- * Deprecated: 1.4: Use #ClutterSettings:font-dpi instead
- */
-void
-clutter_backend_set_resolution (ClutterBackend *backend,
-                                gdouble         dpi)
-{
-  ClutterSettings *settings;
-  gint resolution;
-
-  g_return_if_fail (CLUTTER_IS_BACKEND (backend));
-
-  if (dpi < 0)
-    resolution = -1;
-  else
-    resolution = dpi * 1024;
-
-  settings = clutter_settings_get_default ();
-  g_object_set (settings, "font-dpi", resolution, NULL);
 }
 
 /**

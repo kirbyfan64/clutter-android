@@ -295,6 +295,7 @@ deprecated_c = \
 	deprecated/clutter-alpha.c 			\
 	deprecated/clutter-animation.c		\
 	deprecated/clutter-animator.c			\
+	deprecated/clutter-backend-deprecated.c 		\
 	deprecated/clutter-behaviour.c 		\
 	deprecated/clutter-behaviour-depth.c		\
 	deprecated/clutter-behaviour-ellipse.c	\
@@ -318,6 +319,7 @@ deprecated_c = \
 	deprecated/clutter-state.c			\
 	deprecated/clutter-table-layout.c		\
 	deprecated/clutter-texture.c 			\
+	deprecated/clutter-timeout-pool.c		\
 	deprecated/clutter-timeout-pool.c		\
 	$(NULL)
 
@@ -538,32 +540,32 @@ endif # SUPPORT_GDK
 
 
 android_source_c = \
-	$(srcdir)/android/clutter-android-application.c	\
+	android/clutter-android-application.c	\
 	$(NULL)
 
 android_source_c_priv = \
-	$(srcdir)/android/android_jni_utils.cpp \
-	$(srcdir)/android/android_native_app_glue.c \
-	$(srcdir)/android/clutter-android-keycodes.c \
-	$(srcdir)/android/clutter-backend-android.c \
-	$(srcdir)/android/clutter-device-manager-android.c \
-	$(srcdir)/android/clutter-event-android.c \
-	$(srcdir)/android/clutter-stage-android.c \
+	android/android_jni_utils.cpp \
+	android/android_native_app_glue.c \
+	android/clutter-android-keycodes.c \
+	android/clutter-backend-android.c \
+	android/clutter-device-manager-android.c \
+	android/clutter-event-android.c \
+	android/clutter-stage-android.c \
 	$(NULL)
 
 android_source_h = \
-	$(srcdir)/android/clutter-android-application.h	\
-	$(srcdir)/android/clutter-android.h \
+	android/clutter-android-application.h	\
+	android/clutter-android.h \
 	$(NULL)
 
 android_source_h_priv = \
-	$(srcdir)/android/android_jni_utils.h \
-	$(srcdir)/android/android_native_app_glue.h \
-	$(srcdir)/android/clutter-android-keycodes.h \
-	$(srcdir)/android/clutter-backend-android.h \
-	$(srcdir)/android/clutter-device-manager-android.h \
-	$(srcdir)/android/clutter-event-android.h \
-	$(srcdir)/android/clutter-stage-android.h \
+	android/android_jni_utils.h \
+	android/android_native_app_glue.h \
+	android/clutter-android-keycodes.h \
+	android/clutter-backend-android.h \
+	android/clutter-device-manager-android.h \
+	android/clutter-event-android.h \
+	android/clutter-stage-android.h \
 	$(NULL)
 
 if SUPPORT_ANDROID

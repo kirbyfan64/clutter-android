@@ -60,6 +60,18 @@ struct _ClutterBackend
   GList *event_translators;
 };
 
+struct _ClutterBackendPrivate
+{
+  cairo_font_options_t *font_options;
+
+  gchar *font_name;
+
+  gfloat units_per_em;
+  gint32 units_serial;
+
+  GList *event_translators;
+};
+
 struct _ClutterBackendClass
 {
   /*< private >*/
